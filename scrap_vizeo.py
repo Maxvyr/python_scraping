@@ -29,9 +29,18 @@ def changePage():
         page = requests.get(URL_BASE + page_cam)
         # print(page.status_code)
         soup = BeautifulSoup(page.content, "html.parser")
-        result = soup.title
-        print(result)   
+        title = soup.title.text
+        price = soup.select_one('span[class*=prod-fiche-refonte-code]').text
+        desc = soup.find_all('div', class_='prod_fiche_designation pt-5')
+        # desc = soup.select_one('div[class*=prod_fiche_designation pt-5]').text
+        img = soup.find_all('img', class_='img-fluid')
+        print(title)   
+        print(price)   
+        print(desc)   
+        print(img)   
+        print("------")   
 
+print("go")
 recoverAllProduc()
 print("next")
 changePage()
