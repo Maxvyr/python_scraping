@@ -36,16 +36,17 @@ def scrap_data(soup):
     price = soup.select_one('span[class*=prod-fiche-refonte-code]').text
     desc = soup.select_one('.prod_fiche_designation').text
     img = soup.select_one('.img-fluid')
-    img_link = img['src']
-    print(title)   
-    print(price)   
-    print(desc)   
-    print(img_link)   
-    print("------")   
+    img_link = URL_BASE + img['src']
+    file = open("result.txt", "a")
+    file.write(title) 
+    file.write(price) 
+    file.write(desc) 
+    file.write(img_link) 
+    file.write("\n") 
 
-print("go")
+print("💪 Let's Go 💪")
 recover_all_producd()
-print("next")
+print("🐍 Wait until the end 🐍")
 change_page()
-print("end")
+print("End : Take a look of the file  result.txt 🙈")
 
