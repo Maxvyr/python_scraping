@@ -34,11 +34,9 @@ def change_page():
 def scrap_data(soup):
     title = soup.title.text
     price = soup.select_one('span[class*=prod-fiche-refonte-code]').text
-    desc = soup.find_all('div', class_='prod_fiche_designation pt-5')
-    # desc = soup.select_one('div[class*=prod_fiche_designation pt-5]').text
+    desc = soup.select_one('.prod_fiche_designation').text
     img = soup.select_one('.img-fluid')
     img_link = img['src']
-    # img = soup.find_all('img', class_='img-fluid')
     print(title)   
     print(price)   
     print(desc)   
