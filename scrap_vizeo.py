@@ -9,7 +9,7 @@ page = requests.get(URL_BASE + URL_CAM)
 result_product_per_page = []
 
 
-def recoverAllProduc():
+def recover_all_producd():
     if page.status_code == 200:
             soup = BeautifulSoup(page.content, "html.parser")
             result = soup.find_all('a', href=True)
@@ -24,25 +24,30 @@ def recoverAllProduc():
     else:
         print(f"Page not found : {page.status_code}")
 
-def changePage():
+def change_page():
     for page_cam in result_product_per_page:
         page = requests.get(URL_BASE + page_cam)
-        # print(page.status_code)
         soup = BeautifulSoup(page.content, "html.parser")
-        title = soup.title.text
-        price = soup.select_one('span[class*=prod-fiche-refonte-code]').text
-        desc = soup.find_all('div', class_='prod_fiche_designation pt-5')
-        # desc = soup.select_one('div[class*=prod_fiche_designation pt-5]').text
-        img = soup.find_all('img', class_='img-fluid')
-        print(title)   
-        print(price)   
-        print(desc)   
-        print(img)   
-        print("------")   
+        scrap_data(soup)
+        
+
+def scrap_data(soup):
+    title = soup.title.text
+    price = soup.select_one('span[class*=prod-fiche-refonte-code]').text
+    desc = soup.find_all('div', class_='prod_fiche_designation pt-5')
+    # desc = soup.select_one('div[class*=prod_fiche_designation pt-5]').text
+    img = soup.select_one('.img-fluid')
+    img_link = img['src']
+    # img = soup.find_all('img', class_='img-fluid')
+    print(title)   
+    print(price)   
+    print(desc)   
+    print(img_link)   
+    print("------")   
 
 print("go")
-recoverAllProduc()
+recover_all_producd()
 print("next")
-changePage()
+change_page()
 print("end")
 
